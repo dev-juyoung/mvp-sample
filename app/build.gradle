@@ -29,6 +29,9 @@ dependencies {
     compile "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
 
+    // Image Loader.
+    compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+
     // Testing Tools.
     androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
