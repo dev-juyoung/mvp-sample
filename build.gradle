@@ -3,6 +3,7 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
@@ -15,6 +16,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
     }
 }
 
@@ -32,11 +34,13 @@ ext {
     minSdkVersion = 23
     targetSdkVersion = 26
     compileSdkVersion = 26
-    buildToolsVersion = '26.0.1'
+    buildToolsVersion = '26.0.2'
 
     // app dependencies.
     junitVersion = '4.12'
     espressoVersion = '2.2.2'
     supportLibraryVersion = '26.0.0-alpha1'
     constraintLayoutVersion = '1.0.2'
+    butterKnifeVersion = '8.8.1'
+    glideVersion = '3.7.0'
 }
