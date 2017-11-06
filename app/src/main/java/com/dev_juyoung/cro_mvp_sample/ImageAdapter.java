@@ -34,7 +34,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @Override
     public void addItems(ArrayList<Integer> items) {
-        Log.i(TAG, "Presenter -> AdapterModel: 신규 데이터 추가 요청 이벤트.");
+        Log.i(TAG, "AdapterView: Presenter로 부터 신규 데이터 전달 받음.");
 
         // 신규 데이터 추가.
         if (data == null) {
@@ -46,7 +46,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @Override
     public void updateItems(ArrayList<Integer> items) {
-        Log.i(TAG, "Presenter -> AdapterModel: 데이터 갱신 요청 이벤트.");
+        Log.i(TAG, "AdapterView: Presenter로 부터 갱신 데이터 전달 받음.");
 
         // 데이터 갱신.
         data = items;
@@ -54,7 +54,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @Override
     public void updateView() {
-        Log.i(TAG, "Presenter -> AdapterView: UI 갱신 요청 이벤트.");
+        Log.i(TAG, "AdapterView: Presenter로 부터 UI 갱신 요청 전달 받음.");
 
         notifyDataSetChanged();
     }
@@ -74,7 +74,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
         @OnClick(R.id.imageView)
         void imageViewTouchUp() {
-            Log.i(TAG, "AdapterView -> Presenter: 사용자 클릭 이벤트 전달.");
+            Log.i(TAG, "AdapterView: 사용자 클릭 이벤트 발생.");
 
             if (onItemClickListener != null) {
                 onItemClickListener.onItemClick(getAdapterPosition());

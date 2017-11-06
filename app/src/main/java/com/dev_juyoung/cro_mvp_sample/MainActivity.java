@@ -8,7 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.dev_juyoung.cro_mvp_sample.base.BaseActivity;
-import com.dev_juyoung.cro_mvp_sample.data.ImageData;
+import com.dev_juyoung.cro_mvp_sample.data.ImageRepository;
 
 import butterknife.BindView;
 
@@ -46,8 +46,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         mPresenter.setAdapterView(mAdapter);
         mPresenter.setAdapterModel(mAdapter);
 
-        // Presenter에서 사용될 ImageData setup.
-        mPresenter.setImageData(ImageData.getInstance());
+        // Presenter에서 사용 될 Repository (Model) setup.
+        mPresenter.setImageData(ImageRepository.getInstance());
     }
 
     private void setupRefreshLayout() {
@@ -71,7 +71,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void updateRefresh() {
-        Log.i(TAG, "Presenter -> View: UI 갱신 요청 이벤트 [ refresh 처리 ]");
+        Log.i(TAG, "View: Presenter로 부터 UI 갱신 요청 받음. [ RefreshLayout 처리 ]");
 
         if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
@@ -80,7 +80,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void showToast(String message) {
-        Log.i(TAG, "Presenter -> View: UI 갱신 요청 이벤트. [ toast 처리 ]");
+        Log.i(TAG, "View: Presenter로 부터 UI 갱신 요청 받음. [ Toast 처리 ]");
 
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
