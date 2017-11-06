@@ -18,7 +18,7 @@ import butterknife.BindView;
  * Created by juyounglee on 2017. 11. 3..
  */
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
+public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> implements ImageAdapterContract.View, ImageAdapterContract.Model {
     private Context mContext;
     private ArrayList<Integer> data;
 
@@ -26,17 +26,24 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         this.mContext = mContext;
     }
 
+    @Override
     public void addItems(ArrayList<Integer> items) {
+        // 신규 데이터 추가.
         if (data == null) {
             data = new ArrayList<>();
         }
 
         data.addAll(items);
-        notifyDataSetChanged();
     }
 
+    @Override
     public void updateItems(ArrayList<Integer> items) {
+        // 데이터 갱신.
         data = items;
+    }
+
+    @Override
+    public void updateView() {
         notifyDataSetChanged();
     }
 
