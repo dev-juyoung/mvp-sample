@@ -6,22 +6,25 @@ import android.util.Log;
 import java.util.ArrayList;
 
 /**
- * Created by juyounglee on 2017. 11. 3..
+ * Created by juyounglee on 2017. 11. 6..
  */
 
-public class ImageData {
-    private static final String TAG = "ImageData";
-    private static ImageData instance;
+public class ImageLocalDataSource implements ImageSource {
+    private static final String TAG = "ImageLocalDataSource";
 
-    public static ImageData getInstance() {
+    private static ImageLocalDataSource instance;
+
+    public static ImageLocalDataSource getInstance() {
         if (instance == null) {
-            instance = new ImageData();
+            instance = new ImageLocalDataSource();
         }
+
         return instance;
     }
 
-    public ArrayList<Integer> getImages(Context context, int size) {
-        Log.i(TAG, "Presenter -> Model: 데이터 요청 이벤트.");
+    @Override
+    public void getImages(Context context, int size, LoadImageCallback callback) {
+        Log.i(TAG, "LocalDataSource(Model): Repository의 요청에 따라 Local 저장소에서 요청된 데이터를 처리함.");
 
         ArrayList<Integer> items = new ArrayList<>();
 
@@ -34,6 +37,8 @@ public class ImageData {
             items.add(resourceId);
         }
 
-        return items;
+        if (callback != null) {
+            callback.onImageLoaded(items);
+        }
     }
 }
