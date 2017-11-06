@@ -2,6 +2,7 @@ package com.dev_juyoung.cro_mvp_sample;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import butterknife.BindView;
  */
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> implements ImageAdapterContract.View, ImageAdapterContract.Model {
+    private static final String TAG = "ImageAdapter";
+
     private Context mContext;
     private ArrayList<Integer> data;
 
@@ -28,6 +31,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @Override
     public void addItems(ArrayList<Integer> items) {
+        Log.i(TAG, "Presenter -> AdapterModel: 신규 데이터 추가 요청 이벤트.");
+
         // 신규 데이터 추가.
         if (data == null) {
             data = new ArrayList<>();
@@ -38,12 +43,16 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @Override
     public void updateItems(ArrayList<Integer> items) {
+        Log.i(TAG, "Presenter -> AdapterModel: 데이터 갱신 요청 이벤트.");
+
         // 데이터 갱신.
         data = items;
     }
 
     @Override
     public void updateView() {
+        Log.i(TAG, "Presenter -> AdapterView: UI 갱신 요청 이벤트.");
+
         notifyDataSetChanged();
     }
 
