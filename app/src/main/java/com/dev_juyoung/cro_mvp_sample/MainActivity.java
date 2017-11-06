@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.dev_juyoung.cro_mvp_sample.base.BaseActivity;
 import com.dev_juyoung.cro_mvp_sample.data.ImageData;
@@ -70,10 +71,17 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void updateRefresh() {
-        Log.i(TAG, "Presenter -> View: UI 갱신 요청 이벤트.");
+        Log.i(TAG, "Presenter -> View: UI 갱신 요청 이벤트 [ refresh 처리 ]");
 
         if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void showToast(String message) {
+        Log.i(TAG, "Presenter -> View: UI 갱신 요청 이벤트. [ toast 처리 ]");
+
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

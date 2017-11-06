@@ -11,6 +11,7 @@ import com.dev_juyoung.cro_mvp_sample.data.ImageData;
 public interface MainContract {
     interface View {
         void updateRefresh();
+        void showToast(String message);
     }
 
     interface Presenter {

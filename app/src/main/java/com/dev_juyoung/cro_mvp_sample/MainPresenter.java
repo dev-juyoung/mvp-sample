@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.dev_juyoung.cro_mvp_sample.data.ImageData;
+import com.dev_juyoung.cro_mvp_sample.utils.OnItemClickListener;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * Created by juyounglee on 2017. 11. 6..
  */
 
-public class MainPresenter implements MainContract.Presenter {
+public class MainPresenter implements MainContract.Presenter, OnItemClickListener {
     private static final String TAG = "MainPresenter";
 
     private MainContract.View view;
@@ -27,6 +28,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void setAdapterView(ImageAdapterContract.View adapterView) {
         this.adapterView = adapterView;
+        this.adapterView.setOnItemClickListener(this);
     }
 
     @Override
@@ -56,5 +58,13 @@ public class MainPresenter implements MainContract.Presenter {
         adapterView.updateView();
         // view에 UI 갱신 이벤트 전달.
         view.updateRefresh();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Log.i(TAG, "AdapterView -> Presenter: 사용자 클릭 이벤트에 따른 로직 처리. [ model로 데이터 요청 or Activity 전환 등 ]");
+
+        String formattedMessage = String.format("현재 선택된 Item의 Position: %d", position);
+        view.showToast(formattedMessage);
     }
 }

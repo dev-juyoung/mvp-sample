@@ -10,10 +10,12 @@ import android.widget.ImageView;
 
 import com.dev_juyoung.cro_mvp_sample.base.BaseViewHolder;
 import com.dev_juyoung.cro_mvp_sample.utils.ImageUtils;
+import com.dev_juyoung.cro_mvp_sample.utils.OnItemClickListener;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by juyounglee on 2017. 11. 3..
@@ -24,6 +26,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     private Context mContext;
     private ArrayList<Integer> data;
+    private OnItemClickListener onItemClickListener;
 
     public ImageAdapter(Context mContext) {
         this.mContext = mContext;
@@ -56,12 +59,26 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    @Override
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     public class ViewHolder extends BaseViewHolder {
         @BindView(R.id.imageView)
         ImageView imageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
+        }
+
+        @OnClick(R.id.imageView)
+        void imageViewTouchUp() {
+            Log.i(TAG, "AdapterView -> Presenter: 사용자 클릭 이벤트 전달.");
+
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(getAdapterPosition());
+            }
         }
     }
 

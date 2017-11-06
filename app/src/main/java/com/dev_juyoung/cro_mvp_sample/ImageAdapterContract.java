@@ -1,5 +1,7 @@
 package com.dev_juyoung.cro_mvp_sample;
 
+import com.dev_juyoung.cro_mvp_sample.utils.OnItemClickListener;
+
 import java.util.ArrayList;
 
 /**
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 public interface ImageAdapterContract {
     interface View {
         void updateView();
+        void setOnItemClickListener(OnItemClickListener onItemClickListener);
     }
 
     interface Model {
