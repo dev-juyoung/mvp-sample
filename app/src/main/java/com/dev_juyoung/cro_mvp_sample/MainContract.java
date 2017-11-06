@@ -5,4 +5,11 @@ package com.dev_juyoung.cro_mvp_sample;
  */
 
 public interface MainContract {
+    interface View {
+
+    }
+
+    interface Presenter {
+        void setView(View view);
+    }
 }
