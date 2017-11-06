@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.dev_juyoung.cro_mvp_sample.base.BaseActivity;
 import com.dev_juyoung.cro_mvp_sample.data.ImageData;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -32,15 +32,21 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         setupPresenter();
         setupRefreshLayout();
         setupRecyclerView();
-        updateView(ImageData.getInstance().getImages(this, 10), false);
     }
 
     private void setupPresenter() {
-        // 현재 View에서 사용할 Presenter를 생성한다.
+        // 현재 View에서 사용할 Presenter 생성.
         mPresenter = new MainPresenter();
-        // Presenter에 View를 setup 한다.
+
+        // Presenter에 View를 setup.
         mPresenter.setView(this);
-        // Presenter에서 사용될 ImageData를 setup 한다.
+
+        // Adapter를 생성하고, Presenter에 Adapter 관련 View / Model setup.
+        mAdapter = new ImageAdapter(this);
+        mPresenter.setAdapterView(mAdapter);
+        mPresenter.setAdapterModel(mAdapter);
+
+        // Presenter에서 사용될 ImageData setup.
         mPresenter.setImageData(ImageData.getInstance());
     }
 
@@ -55,8 +61,6 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     }
 
     private void setupRecyclerView() {
-        mAdapter = new ImageAdapter(this);
-
         imageList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         imageList.setHasFixedSize(true);
         imageList.setAdapter(mAdapter);
@@ -66,18 +70,18 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     }
 
     @Override
-    public void updateView(ArrayList<Integer> items, boolean isUpdate) {
-        // refreshLayout의 progress가 돌아가고 있다면, 제거한다.
+    public void updateRefresh() {
+        Log.i(TAG, "Presenter -> View: UI 갱신 요청 이벤트 [ refresh 처리 ]");
+
         if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
+    }
 
-        if (!isUpdate) {
-            // 신규 추가라면 Adpater의 addItems 메서드 호출.
-            mAdapter.addItems(items);
-        } else {
-            // 데이터 갱신이라면 Adapter의 updateItems 메서드 호출.
-            mAdapter.updateItems(items);
-        }
+    @Override
+    public void showToast(String message) {
+        Log.i(TAG, "Presenter -> View: UI 갱신 요청 이벤트. [ toast 처리 ]");
+
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

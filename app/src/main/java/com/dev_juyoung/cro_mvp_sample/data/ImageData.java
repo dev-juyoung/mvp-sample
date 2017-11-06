@@ -21,12 +21,14 @@ public class ImageData {
     }
 
     public ArrayList<Integer> getImages(Context context, int size) {
+        Log.i(TAG, "Presenter -> Model: 데이터 요청 이벤트.");
+
         ArrayList<Integer> items = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
             int randomIndex = (int) (Math.random() * 30) + 1;
             String resourceName = String.format("resource_%02d", randomIndex);
-            Log.i(TAG, resourceName);
+            Log.i(TAG, "데이터 생성: " + resourceName);
 
             int resourceId = context.getResources().getIdentifier(resourceName, "drawable", context.getApplicationContext().getPackageName());
             items.add(resourceId);

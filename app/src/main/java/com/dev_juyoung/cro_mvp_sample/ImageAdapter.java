@@ -2,6 +2,7 @@ package com.dev_juyoung.cro_mvp_sample;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,35 +10,58 @@ import android.widget.ImageView;
 
 import com.dev_juyoung.cro_mvp_sample.base.BaseViewHolder;
 import com.dev_juyoung.cro_mvp_sample.utils.ImageUtils;
+import com.dev_juyoung.cro_mvp_sample.utils.OnItemClickListener;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by juyounglee on 2017. 11. 3..
  */
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
+public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> implements ImageAdapterContract.View, ImageAdapterContract.Model {
+    private static final String TAG = "ImageAdapter";
+
     private Context mContext;
     private ArrayList<Integer> data;
+    private OnItemClickListener onItemClickListener;
 
     public ImageAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
+    @Override
     public void addItems(ArrayList<Integer> items) {
+        Log.i(TAG, "Presenter -> AdapterModel: 신규 데이터 추가 요청 이벤트.");
+
+        // 신규 데이터 추가.
         if (data == null) {
             data = new ArrayList<>();
         }
 
         data.addAll(items);
+    }
+
+    @Override
+    public void updateItems(ArrayList<Integer> items) {
+        Log.i(TAG, "Presenter -> AdapterModel: 데이터 갱신 요청 이벤트.");
+
+        // 데이터 갱신.
+        data = items;
+    }
+
+    @Override
+    public void updateView() {
+        Log.i(TAG, "Presenter -> AdapterView: UI 갱신 요청 이벤트.");
+
         notifyDataSetChanged();
     }
 
-    public void updateItems(ArrayList<Integer> items) {
-        data = items;
-        notifyDataSetChanged();
+    @Override
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     public class ViewHolder extends BaseViewHolder {
@@ -46,6 +70,15 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
         public ViewHolder(View itemView) {
             super(itemView);
+        }
+
+        @OnClick(R.id.imageView)
+        void imageViewTouchUp() {
+            Log.i(TAG, "AdapterView -> Presenter: 사용자 클릭 이벤트 전달.");
+
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(getAdapterPosition());
+            }
         }
     }
 
