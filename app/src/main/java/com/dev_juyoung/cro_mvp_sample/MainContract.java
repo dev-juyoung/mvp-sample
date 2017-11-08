@@ -2,6 +2,8 @@ package com.dev_juyoung.cro_mvp_sample;
 
 import android.content.Context;
 
+import com.dev_juyoung.cro_mvp_sample.base.BasePresenter;
+import com.dev_juyoung.cro_mvp_sample.base.BaseView;
 import com.dev_juyoung.cro_mvp_sample.data.ImageRepository;
 
 /**
@@ -9,13 +11,12 @@ import com.dev_juyoung.cro_mvp_sample.data.ImageRepository;
  */
 
 public interface MainContract {
-    interface View {
+    interface View extends BaseView {
         void updateRefresh();
         void showToast(String message);
     }
 
-    interface Presenter {
-        void setView(View view);
+    interface Presenter extends BasePresenter<View> {
         void setAdapterView(ImageAdapterContract.View adapterView);
         void setAdapterModel(ImageAdapterContract.Model adapterModel);
         void setImageData(ImageRepository repository);

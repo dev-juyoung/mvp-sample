@@ -27,6 +27,11 @@ public class MainPresenter implements MainContract.Presenter, OnItemClickListene
     }
 
     @Override
+    public void removeView() {
+        view = null;
+    }
+
+    @Override
     public void setAdapterView(ImageAdapterContract.View adapterView) {
         this.adapterView = adapterView;
         this.adapterView.setOnItemClickListener(this);
