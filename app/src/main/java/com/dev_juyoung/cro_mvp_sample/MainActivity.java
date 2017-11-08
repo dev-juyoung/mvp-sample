@@ -12,10 +12,8 @@ import com.dev_juyoung.cro_mvp_sample.data.ImageRepository;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity implements MainContract.View {
+public class MainActivity extends BaseActivity<MainContract.View, MainContract.Presenter> implements MainContract.View {
     private static final String TAG = "MainActivity";
-
-    private MainContract.Presenter mPresenter;
 
     @BindView(R.id.refreshLayout)
     SwipeRefreshLayout refreshLayout;
@@ -25,22 +23,21 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     private ImageAdapter mAdapter;
 
     @Override
+    protected MainContract.Presenter setPresenter() {
+        return new MainPresenter();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setupPresenter();
+        initPresenter();
         setupRefreshLayout();
         setupRecyclerView();
     }
 
-    private void setupPresenter() {
-        // 현재 View에서 사용할 Presenter 생성.
-        mPresenter = new MainPresenter();
-
-        // Presenter에 View를 setup.
-        mPresenter.setView(this);
-
+    private void initPresenter() {
         // Adapter를 생성하고, Presenter에 Adapter 관련 View / Model setup.
         mAdapter = new ImageAdapter(this);
         mPresenter.setAdapterView(mAdapter);
