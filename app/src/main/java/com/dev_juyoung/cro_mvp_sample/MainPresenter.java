@@ -3,6 +3,7 @@ package com.dev_juyoung.cro_mvp_sample;
 import android.content.Context;
 import android.util.Log;
 
+import com.dev_juyoung.cro_mvp_sample.base.BasePresenterImpl;
 import com.dev_juyoung.cro_mvp_sample.data.ImageRepository;
 import com.dev_juyoung.cro_mvp_sample.data.ImageSource;
 import com.dev_juyoung.cro_mvp_sample.utils.OnItemClickListener;
@@ -13,18 +14,12 @@ import java.util.ArrayList;
  * Created by juyounglee on 2017. 11. 6..
  */
 
-public class MainPresenter implements MainContract.Presenter, OnItemClickListener {
+public class MainPresenter extends BasePresenterImpl<MainContract.View> implements MainContract.Presenter, OnItemClickListener {
     private static final String TAG = "MainPresenter";
 
-    private MainContract.View view;
     private ImageAdapterContract.View adapterView;
     private ImageAdapterContract.Model adapterModel;
     private ImageRepository repository;
-
-    @Override
-    public void setView(MainContract.View view) {
-        this.view = view;
-    }
 
     @Override
     public void setAdapterView(ImageAdapterContract.View adapterView) {
