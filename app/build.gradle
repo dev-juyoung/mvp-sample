@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -42,4 +46,7 @@ dependencies {
 
     testCompile "junit:junit:$rootProject.junitVersion"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroid2Version"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJava2Version"
 }
