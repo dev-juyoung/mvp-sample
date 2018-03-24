@@ -3,6 +3,12 @@ package com.dev_juyoung.cro_mvp_sample.data;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Maybe;
+import io.reactivex.Single;
+
 /**
  * Created by juyounglee on 2017. 11. 6..
  */
@@ -28,9 +34,9 @@ public class ImageRepository implements ImageSource {
 
 
     @Override
-    public void getImages(Context context, int size, LoadImageCallback callback) {
+    public Single<ArrayList<Integer>> getImages(Context context, int size) {
         Log.i(TAG, "Repository(Model): Presenter의 데이터 요청에 따른 로직 처리. [상황에 맞게 Local || Remote 데이터를 처리하도록 선택적으로 요청.]");
 
-        localDataSource.getImages(context, size, callback);
+        return localDataSource.getImages(context, size);
     }
 }

@@ -3,6 +3,10 @@ package com.dev_juyoung.cro_mvp_sample.data;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 /**
  * Created by juyounglee on 2017. 11. 6..
@@ -18,5 +22,5 @@ public interface ImageSource {
         void onImageLoaded(ArrayList<Integer> items);
     }
 
-    void getImages(Context context, int size, LoadImageCallback callback);
+    Single<ArrayList<Integer>> getImages(Context context, int size);
 }
